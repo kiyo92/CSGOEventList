@@ -9,12 +9,24 @@
 /* Begin PBXBuildFile section */
 		6C1210962A6F38F3005BDF58 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C1210952A6F38F3005BDF58 /* AppDelegate.swift */; };
 		6C1210982A6F38F3005BDF58 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C1210972A6F38F3005BDF58 /* SceneDelegate.swift */; };
-		6C12109A2A6F38F3005BDF58 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C1210992A6F38F3005BDF58 /* ViewController.swift */; };
 		6C12109F2A6F38F6005BDF58 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6C12109E2A6F38F6005BDF58 /* Assets.xcassets */; };
 		6C1210A22A6F38F6005BDF58 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6C1210A02A6F38F6005BDF58 /* LaunchScreen.storyboard */; };
 		6C1210AD2A6F38F6005BDF58 /* CSGOEventListTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C1210AC2A6F38F6005BDF58 /* CSGOEventListTests.swift */; };
 		6C1210B72A6F38F6005BDF58 /* CSGOEventListUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C1210B62A6F38F6005BDF58 /* CSGOEventListUITests.swift */; };
 		6C1210B92A6F38F6005BDF58 /* CSGOEventListUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C1210B82A6F38F6005BDF58 /* CSGOEventListUITestsLaunchTests.swift */; };
+		6C1210C72A703713005BDF58 /* NetworkAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C1210C62A703713005BDF58 /* NetworkAdapter.swift */; };
+		6C1210C92A70372F005BDF58 /* RouteProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C1210C82A70372F005BDF58 /* RouteProtocol.swift */; };
+		6C1210CB2A703757005BDF58 /* RouteModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C1210CA2A703757005BDF58 /* RouteModel.swift */; };
+		6C1210CD2A70376E005BDF58 /* PathProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C1210CC2A70376E005BDF58 /* PathProtocol.swift */; };
+		6C1210D12A7044AC005BDF58 /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C1210D02A7044AC005BDF58 /* Router.swift */; };
+		6C1210D32A7044F0005BDF58 /* MatchPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C1210D22A7044F0005BDF58 /* MatchPath.swift */; };
+		6C1210D62A704C10005BDF58 /* MatchItemListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C1210D52A704C10005BDF58 /* MatchItemListModel.swift */; };
+		6C1210DA2A7056A8005BDF58 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C1210D92A7056A8005BDF58 /* HomeViewController.swift */; };
+		6C1210DE2A7056CD005BDF58 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C1210DD2A7056CD005BDF58 /* HomeViewModel.swift */; };
+		6C1210E12A7068A9005BDF58 /* MatchListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C1210E02A7068A9005BDF58 /* MatchListTableViewCell.swift */; };
+		6C1210E32A707369005BDF58 /* CustomPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C1210E22A707369005BDF58 /* CustomPath.swift */; };
+		6C1210E52A70C103005BDF58 /* Date+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C1210E42A70C103005BDF58 /* Date+Extensions.swift */; };
+		6C1210E82A70CB69005BDF58 /* String+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C1210E72A70CB69005BDF58 /* String+Extensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,7 +50,6 @@
 		6C1210922A6F38F3005BDF58 /* CSGOEventList.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CSGOEventList.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6C1210952A6F38F3005BDF58 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6C1210972A6F38F3005BDF58 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		6C1210992A6F38F3005BDF58 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		6C12109E2A6F38F6005BDF58 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		6C1210A12A6F38F6005BDF58 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		6C1210A32A6F38F6005BDF58 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -47,6 +58,19 @@
 		6C1210B22A6F38F6005BDF58 /* CSGOEventListUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CSGOEventListUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		6C1210B62A6F38F6005BDF58 /* CSGOEventListUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CSGOEventListUITests.swift; sourceTree = "<group>"; };
 		6C1210B82A6F38F6005BDF58 /* CSGOEventListUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CSGOEventListUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		6C1210C62A703713005BDF58 /* NetworkAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkAdapter.swift; sourceTree = "<group>"; };
+		6C1210C82A70372F005BDF58 /* RouteProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteProtocol.swift; sourceTree = "<group>"; };
+		6C1210CA2A703757005BDF58 /* RouteModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteModel.swift; sourceTree = "<group>"; };
+		6C1210CC2A70376E005BDF58 /* PathProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PathProtocol.swift; sourceTree = "<group>"; };
+		6C1210D02A7044AC005BDF58 /* Router.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
+		6C1210D22A7044F0005BDF58 /* MatchPath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchPath.swift; sourceTree = "<group>"; };
+		6C1210D52A704C10005BDF58 /* MatchItemListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchItemListModel.swift; sourceTree = "<group>"; };
+		6C1210D92A7056A8005BDF58 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		6C1210DD2A7056CD005BDF58 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
+		6C1210E02A7068A9005BDF58 /* MatchListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchListTableViewCell.swift; sourceTree = "<group>"; };
+		6C1210E22A707369005BDF58 /* CustomPath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPath.swift; sourceTree = "<group>"; };
+		6C1210E42A70C103005BDF58 /* Date+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extensions.swift"; sourceTree = "<group>"; };
+		6C1210E72A70CB69005BDF58 /* String+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extensions.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,9 +121,13 @@
 		6C1210942A6F38F3005BDF58 /* CSGOEventList */ = {
 			isa = PBXGroup;
 			children = (
+				6C1210E62A70C109005BDF58 /* Extensions */,
+				6C1210DB2A7056BB005BDF58 /* ViewModel */,
+				6C1210D72A705679005BDF58 /* View */,
+				6C1210D42A704BF4005BDF58 /* Model */,
+				6C1210C52A70368A005BDF58 /* Network */,
 				6C1210952A6F38F3005BDF58 /* AppDelegate.swift */,
 				6C1210972A6F38F3005BDF58 /* SceneDelegate.swift */,
-				6C1210992A6F38F3005BDF58 /* ViewController.swift */,
 				6C12109E2A6F38F6005BDF58 /* Assets.xcassets */,
 				6C1210A02A6F38F6005BDF58 /* LaunchScreen.storyboard */,
 				6C1210A32A6F38F6005BDF58 /* Info.plist */,
@@ -122,6 +150,94 @@
 				6C1210B82A6F38F6005BDF58 /* CSGOEventListUITestsLaunchTests.swift */,
 			);
 			path = CSGOEventListUITests;
+			sourceTree = "<group>";
+		};
+		6C1210C52A70368A005BDF58 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				6C1210CF2A7043BD005BDF58 /* Path */,
+				6C1210CE2A7043B7005BDF58 /* Route */,
+				6C1210C62A703713005BDF58 /* NetworkAdapter.swift */,
+				6C1210C82A70372F005BDF58 /* RouteProtocol.swift */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
+		6C1210CE2A7043B7005BDF58 /* Route */ = {
+			isa = PBXGroup;
+			children = (
+				6C1210CA2A703757005BDF58 /* RouteModel.swift */,
+				6C1210D02A7044AC005BDF58 /* Router.swift */,
+			);
+			path = Route;
+			sourceTree = "<group>";
+		};
+		6C1210CF2A7043BD005BDF58 /* Path */ = {
+			isa = PBXGroup;
+			children = (
+				6C1210CC2A70376E005BDF58 /* PathProtocol.swift */,
+				6C1210D22A7044F0005BDF58 /* MatchPath.swift */,
+				6C1210E22A707369005BDF58 /* CustomPath.swift */,
+			);
+			path = Path;
+			sourceTree = "<group>";
+		};
+		6C1210D42A704BF4005BDF58 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				6C1210D52A704C10005BDF58 /* MatchItemListModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		6C1210D72A705679005BDF58 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				6C1210D82A705682005BDF58 /* Home */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		6C1210D82A705682005BDF58 /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				6C1210DF2A706877005BDF58 /* Cells */,
+				6C1210D92A7056A8005BDF58 /* HomeViewController.swift */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		6C1210DB2A7056BB005BDF58 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				6C1210DC2A7056C0005BDF58 /* Home */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		6C1210DC2A7056C0005BDF58 /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				6C1210DD2A7056CD005BDF58 /* HomeViewModel.swift */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		6C1210DF2A706877005BDF58 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				6C1210E02A7068A9005BDF58 /* MatchListTableViewCell.swift */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
+		6C1210E62A70C109005BDF58 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				6C1210E42A70C103005BDF58 /* Date+Extensions.swift */,
+				6C1210E72A70CB69005BDF58 /* String+Extensions.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -254,8 +370,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6C12109A2A6F38F3005BDF58 /* ViewController.swift in Sources */,
+				6C1210D12A7044AC005BDF58 /* Router.swift in Sources */,
+				6C1210D62A704C10005BDF58 /* MatchItemListModel.swift in Sources */,
+				6C1210C92A70372F005BDF58 /* RouteProtocol.swift in Sources */,
 				6C1210962A6F38F3005BDF58 /* AppDelegate.swift in Sources */,
+				6C1210D32A7044F0005BDF58 /* MatchPath.swift in Sources */,
+				6C1210E12A7068A9005BDF58 /* MatchListTableViewCell.swift in Sources */,
+				6C1210CD2A70376E005BDF58 /* PathProtocol.swift in Sources */,
+				6C1210DE2A7056CD005BDF58 /* HomeViewModel.swift in Sources */,
+				6C1210DA2A7056A8005BDF58 /* HomeViewController.swift in Sources */,
+				6C1210E52A70C103005BDF58 /* Date+Extensions.swift in Sources */,
+				6C1210E82A70CB69005BDF58 /* String+Extensions.swift in Sources */,
+				6C1210CB2A703757005BDF58 /* RouteModel.swift in Sources */,
+				6C1210E32A707369005BDF58 /* CustomPath.swift in Sources */,
+				6C1210C72A703713005BDF58 /* NetworkAdapter.swift in Sources */,
 				6C1210982A6F38F3005BDF58 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
