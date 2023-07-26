@@ -16,6 +16,8 @@ class HomeViewController: UIViewController {
         let label = UILabel()
         label.text = "Partidas"
         label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = .systemFont(ofSize: 32, weight: .medium)
+        label.textColor = UIColor(red: 1, green: 1, blue: 1, alpha: 1)
 
         return label
     }()
@@ -45,7 +47,7 @@ class HomeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        view.backgroundColor = UIColor(red: 0.086, green: 0.086, blue: 0.129, alpha: 1)
         setupHierarchy()
         setupConstraints()
     }
@@ -65,6 +67,7 @@ class HomeViewController: UIViewController {
 
     private func setupHierarchy() {
 
+        view.addSubview(titleLabel)
         view.addSubview(tableView)
     }
 
@@ -72,7 +75,10 @@ class HomeViewController: UIViewController {
 
         NSLayoutConstraint.activate([
 
-            tableView.topAnchor.constraint(equalTo: view.topAnchor),
+            titleLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            titleLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 24),
+
+            tableView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 24),
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
@@ -101,7 +107,10 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
 
             let opponents = self.viewModel.matchList[indexPath.row].opponents ?? []
             let date = self.viewModel.matchList[indexPath.row].begin_at ?? ""
-            cell.setup(with: opponents, date: date)
+            let league = self.viewModel.matchList[indexPath.row].league
+            cell.setup(with: opponents,
+                       date: date,
+                       league: league)
         }
 
         return cell

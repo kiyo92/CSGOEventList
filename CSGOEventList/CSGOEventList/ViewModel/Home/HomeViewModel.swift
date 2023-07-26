@@ -34,11 +34,17 @@ class HomeViewModel {
             self.matchList.enumerated().forEach { (matchIndex, match) in
                 self.group.enter()
                 match.opponents?.enumerated().forEach { (opponentIndex, opponent) in
-                    self.fetchTeamImage(with: opponent.opponent?.image_url ?? "") { data, error in
+                    self.fetchImage(with: opponent.opponent?.image_url ?? "") { data, error in
 
                         self.matchList[matchIndex].opponents?[opponentIndex].imageData = data
                     }
                 }
+
+                self.fetchImage(with: match.league?.image_url ?? "") { data, error in
+
+                    self.matchList[matchIndex].league?.imageData = data
+                }
+
                 self.group.leave()
             }
 
@@ -49,7 +55,7 @@ class HomeViewModel {
         }
     }
 
-    private func fetchTeamImage(with url: String, completion: @escaping(Data, Error?) -> Void) {
+    private func fetchImage(with url: String, completion: @escaping(Data, Error?) -> Void) {
 
         let routeModel = RouteModel(path: CustomPath(absolutePath: url))
         let network = NetworkAdapter(routeModel: routeModel)

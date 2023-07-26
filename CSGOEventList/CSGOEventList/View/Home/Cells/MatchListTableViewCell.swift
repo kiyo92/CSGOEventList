@@ -49,6 +49,18 @@ class MatchListTableViewCell: UITableViewCell {
         return imageView
     }()
 
+    private lazy var homeLabel: UILabel = {
+
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = .systemFont(ofSize: 10)
+        label.textColor = UIColor(red: 1, green: 1, blue: 1, alpha: 1)
+        label.textAlignment = .center
+        label.numberOfLines = 2
+
+        return label
+    }()
+
     private lazy var versusLabel: UILabel = {
 
         let label = UILabel()
@@ -67,6 +79,18 @@ class MatchListTableViewCell: UITableViewCell {
         imageView.image = UIImage(named: "emptyLogo")
 
         return imageView
+    }()
+
+    private lazy var visitorLabel: UILabel = {
+
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = .systemFont(ofSize: 12)
+        label.textColor = UIColor(red: 1, green: 1, blue: 1, alpha: 1)
+        label.textAlignment = .center
+        label.numberOfLines = 2
+
+        return label
     }()
 
     private lazy var separator: UIView = {
@@ -100,11 +124,15 @@ class MatchListTableViewCell: UITableViewCell {
 
     var opponents: [MatchOpponentListModel] = []
     var date: String = ""
+    var league: MatchLeagueModel?
 
-    func setup(with opponents: [MatchOpponentListModel], date: String) {
+    func setup(with opponents: [MatchOpponentListModel],
+               date: String,
+               league: MatchLeagueModel?) {
 
         self.opponents = opponents
         self.date = date
+        self.league = league
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -125,11 +153,37 @@ class MatchListTableViewCell: UITableViewCell {
             opponents.enumerated().forEach { (index, opponent) in
 
                 if index == 0 {
+
                     self.homeImageView.image = UIImage(data: opponent.imageData ?? Data())
+                    if let name = opponent.opponent?.name {
+
+                        self.homeLabel.text = opponent.opponent?.name
+                    } else {
+
+                        self.homeLabel.text = "TBD"
+                    }
                 } else if index == 1 {
+
                     self.visitorImageView.image = UIImage(data: opponent.imageData ?? Data())
+                    if let name = opponent.opponent?.name {
+
+                        self.visitorLabel.text = opponent.opponent?.name
+                    } else {
+
+                        self.visitorLabel.text = "TBD"
+                    }
                 }
             }
+
+            if let leagueImage = league?.imageData {
+
+                leagueImageView.image = UIImage(data: league?.imageData ?? Data())
+            } else {
+
+                leagueImageView.image = UIImage(named: "emptyLogo")
+            }
+
+            leagueNameLabel.text = league?.name ?? ""
 
             let date = self.date.getDateFromString()
 
@@ -155,8 +209,10 @@ class MatchListTableViewCell: UITableViewCell {
         container.addSubview(dateContainer)
         dateContainer.addSubview(dateLabel)
         container.addSubview(homeImageView)
+        container.addSubview(homeLabel)
         container.addSubview(versusLabel)
         container.addSubview(visitorImageView)
+        container.addSubview(visitorLabel)
         container.addSubview(separator)
         container.addSubview(leagueImageView)
         container.addSubview(leagueNameLabel)
@@ -188,6 +244,10 @@ class MatchListTableViewCell: UITableViewCell {
             homeImageView.heightAnchor.constraint(equalToConstant: 60),
             homeImageView.widthAnchor.constraint(equalToConstant: 60),
 
+            homeLabel.topAnchor.constraint(equalTo: homeImageView.bottomAnchor, constant: 10),
+            homeLabel.centerXAnchor.constraint(equalTo: homeImageView.centerXAnchor),
+            homeLabel.widthAnchor.constraint(equalToConstant: 80),
+
             versusLabel.centerYAnchor.constraint(equalTo: container.centerYAnchor, constant: -16),
             versusLabel.centerXAnchor.constraint(equalTo: container.centerXAnchor),
 
@@ -195,6 +255,10 @@ class MatchListTableViewCell: UITableViewCell {
             visitorImageView.leadingAnchor.constraint(equalTo: versusLabel.trailingAnchor, constant: 20),
             visitorImageView.heightAnchor.constraint(equalToConstant: 60),
             visitorImageView.widthAnchor.constraint(equalToConstant: 60),
+
+            visitorLabel.topAnchor.constraint(equalTo: visitorImageView.bottomAnchor, constant: 10),
+            visitorLabel.centerXAnchor.constraint(equalTo: visitorImageView.centerXAnchor),
+            visitorLabel.widthAnchor.constraint(equalToConstant: 80),
 
             separator.bottomAnchor.constraint(equalTo: container.bottomAnchor, constant: -32),
             separator.leadingAnchor.constraint(equalTo: container.leadingAnchor),
@@ -218,5 +282,6 @@ class MatchListTableViewCell: UITableViewCell {
         visitorImageView.image = UIImage(named: "emptyLogo")
         leagueImageView.image = UIImage(named: "emptyLogo")
         dateLabel.text = ""
+        leagueNameLabel.text = ""
     }
 }

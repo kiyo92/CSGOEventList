@@ -11,6 +11,14 @@ struct MatchItemListModel: Codable {
 
     var opponents: [MatchOpponentListModel]?
     var begin_at: String?
+    var league: MatchLeagueModel?
+}
+
+struct MatchLeagueModel: Codable {
+
+    var image_url: String?
+    var name: String?
+    var imageData: Data?
 }
 
 struct MatchOpponentListModel: Codable {
