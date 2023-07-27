@@ -25,7 +25,7 @@ class HomeCoordinator: Coordinator {
         let vc = HomeViewController(viewModel: viewModel)
         vc.coordinator = self
         self.navigationController.isNavigationBarHidden = true
-        self.navigationController.pushViewController(vc, animated: false)
+        self.navigationController.pushViewController(vc, animated: true)
     }
 
 

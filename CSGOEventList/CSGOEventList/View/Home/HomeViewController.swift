@@ -12,6 +12,16 @@ class HomeViewController: UIViewController {
     weak var coordinator: HomeCoordinator?
     private var viewModel: HomeViewModel
 
+    private lazy var loading: UIActivityIndicatorView = {
+
+        let loading = UIActivityIndicatorView(style: .large)
+        loading.hidesWhenStopped = true
+        loading.color = .darkGray
+        loading.translatesAutoresizingMaskIntoConstraints = false
+
+        return loading
+    }()
+
     private lazy var titleLabel: UILabel = {
 
         let label = UILabel()
@@ -23,6 +33,8 @@ class HomeViewController: UIViewController {
         return label
     }()
 
+    let refreshControl = UIRefreshControl()
+
     private lazy var tableView: UITableView = {
 
         let tableView = UITableView()
@@ -30,6 +42,9 @@ class HomeViewController: UIViewController {
         tableView.register(MatchListTableViewCell.self, forCellReuseIdentifier: "MatchListTableViewCell")
         tableView.separatorStyle = .none
         tableView.backgroundColor = UIColor(red: 0.086, green: 0.086, blue: 0.129, alpha: 1)
+        refreshControl.addTarget(self, action: #selector(refresh), for: .valueChanged)
+        refreshControl.tintColor = .white
+        tableView.refreshControl = refreshControl
         tableView.delegate = self
         tableView.dataSource = self
 
@@ -52,14 +67,43 @@ class HomeViewController: UIViewController {
         setupHierarchy()
         setupConstraints()
 
+        getMatches()
+    }
+
+    private func getMatches(isReload: Bool = false) {
+
+        loading.startAnimating()
+        let group = DispatchGroup()
+
+        group.enter()
         Task {
 
-            await viewModel.getUpcomingMatches { [weak self] _ in
+            await viewModel.getMatches(matchStatus: .running, isReload: isReload) { _ in
 
-                guard let self = self else { return }
-
-                self.tableView.reloadData()
+                group.leave()
             }
+        }
+
+        group.notify(queue: .main) { [weak self] in
+
+            guard let self = self else { return }
+
+            Task {
+
+                await self.getUpcomingMatches()
+            }
+        }
+    }
+
+    private func getUpcomingMatches() async {
+
+        await viewModel.getMatches(matchStatus: .upcoming) { [weak self] _ in
+
+            guard let self = self else { return }
+
+            refreshControl.endRefreshing()
+            self.loading.stopAnimating()
+            self.tableView.reloadData()
         }
     }
 
@@ -67,11 +111,15 @@ class HomeViewController: UIViewController {
 
         view.addSubview(titleLabel)
         view.addSubview(tableView)
+        view.addSubview(loading)
     }
 
     private func setupConstraints() {
 
         NSLayoutConstraint.activate([
+
+            loading.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            loading.centerYAnchor.constraint(equalTo: view.centerYAnchor),
 
             titleLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             titleLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 24),
@@ -81,6 +129,12 @@ class HomeViewController: UIViewController {
             tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
         ])
+    }
+
+    @objc
+    private func refresh() {
+
+        getMatches()
     }
 }
 
@@ -118,5 +172,16 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 
         coordinator?.matchDetail(with: viewModel.matchList[indexPath.row])
+    }
+
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+
+        if indexPath.row + 1 == viewModel.matchList.count {
+
+            Task {
+                
+                await getUpcomingMatches()
+            }
+        }
     }
 }

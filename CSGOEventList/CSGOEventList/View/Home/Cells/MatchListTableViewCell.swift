@@ -76,7 +76,14 @@ class MatchListTableViewCell: UITableViewCell {
 
     var opponents: [MatchOpponentListModel] = []
     var date: String = ""
-    var league: MatchLeagueModel?
+    var league: MatchLeagueModel? {
+
+        didSet {
+
+            setupOpponents()
+            setupLeague()
+        }
+    }
 
     func setup(with opponents: [MatchOpponentListModel],
                date: String,
@@ -87,8 +94,6 @@ class MatchListTableViewCell: UITableViewCell {
         self.league = league
 
         selectionStyle = .none
-        setupOpponents()
-        setupLeague()
         setupHierarchy()
         setupConstraint()
     }
@@ -101,7 +106,6 @@ class MatchListTableViewCell: UITableViewCell {
         
         contentView.backgroundColor = .clear
         backgroundColor = .clear
-
     }
 
     private func setupHierarchy() {
@@ -201,6 +205,13 @@ class MatchListTableViewCell: UITableViewCell {
 
         leagueNameLabel.text = league?.name ?? ""
 
+        if self.date == "now" {
+
+            self.dateLabel.text = "AGORA"
+            self.dateContainer.backgroundColor = .red
+            return
+        }
+
         let date = self.date.getDateFromString()
 
         if date.isSevenDaysAfter() {
@@ -224,6 +235,7 @@ class MatchListTableViewCell: UITableViewCell {
         leagueImageView.image = UIImage(named: "emptyLogo")
         dateLabel.text = ""
         leagueNameLabel.text = ""
+        self.dateContainer.backgroundColor = UIColor(red: 0.979, green: 0.979, blue: 0.979, alpha: 0.2)
         opponentTeamsView.removeFromSuperview()
         opponentTeamsView = OpponentTeamsView(homeImage: UIImage(named: "emptyLogo"),
                                               homeName: "TBD",

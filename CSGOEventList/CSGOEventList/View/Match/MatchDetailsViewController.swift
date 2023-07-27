@@ -11,6 +11,17 @@ class MatchDetailsViewController: UIViewController {
 
     let match: MatchItemListModel
     let viewModel: MatchViewModel
+    weak var coordinator: MatchCoordinator?
+
+    private lazy var loading: UIActivityIndicatorView = {
+
+        let loading = UIActivityIndicatorView(style: .large)
+        loading.hidesWhenStopped = true
+        loading.color = .darkGray
+        loading.translatesAutoresizingMaskIntoConstraints = false
+
+        return loading
+    }()
 
     private lazy var backButton: UIButton = {
 
@@ -19,6 +30,7 @@ class MatchDetailsViewController: UIViewController {
         button.setImage(UIImage(named: "backArrow"), for: .normal)
         button.tintColor = .white
         button.backgroundColor = .clear
+        button.addTarget(self, action: #selector(backButtonPressed), for: .touchUpInside)
 
         return button
     }()
@@ -53,7 +65,7 @@ class MatchDetailsViewController: UIViewController {
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .vertical
         stackView.distribution = .fillEqually
-        stackView.spacing = 13
+        stackView.spacing = 15
 
         return stackView
     }()
@@ -69,7 +81,8 @@ class MatchDetailsViewController: UIViewController {
         return stackView
     }()
 
-    init(match: MatchItemListModel, viewModel: MatchViewModel) {
+    init(match: MatchItemListModel,
+         viewModel: MatchViewModel) {
 
         self.match = match
 
@@ -110,6 +123,7 @@ class MatchDetailsViewController: UIViewController {
 
         view.backgroundColor = UIColor(red: 0.086, green: 0.086, blue: 0.129, alpha: 1)
         getTeamData()
+        createLoader()
     }
 
     private func getTeamData() {
@@ -118,6 +132,7 @@ class MatchDetailsViewController: UIViewController {
         var homePlayerList: [PlayerDetailModel] = []
         var visitorPlayerList: [PlayerDetailModel] = []
 
+        loading.startAnimating()
         guard let opponents = match.opponents else { return }
 
         for _ in opponents {
@@ -129,9 +144,8 @@ class MatchDetailsViewController: UIViewController {
 
             Task {
 
-                await self.viewModel.getTeamData(teamID: "\(opponent.opponent?.id ?? 0)") { [weak self] players in
+                await self.viewModel.getTeamData(teamID: "\(opponent.opponent?.id ?? 0)") { players in
 
-                    guard let self = self else { return }
                     DispatchQueue.main.async {
 
                         for player in players {
@@ -163,9 +177,18 @@ class MatchDetailsViewController: UIViewController {
                                                                                                               player: visitorPlayerList[safe: index] ?? nil)]))
             }
 
+            self.loading.stopAnimating()
+
             self.createHierarchy()
             self.createConstraints()
         }
+    }
+
+    private func createLoader() {
+
+        view.addSubview(loading)
+        loading.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        loading.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
     }
 
     private func createHierarchy() {
@@ -216,5 +239,12 @@ class MatchDetailsViewController: UIViewController {
             }
         }
         return stackView
+    }
+
+    @objc
+    func backButtonPressed() {
+
+        coordinator?.dismiss()
+        coordinator?.dismissCoordinator()
     }
 }

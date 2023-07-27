@@ -9,30 +9,75 @@ import Foundation
 
 class HomeViewModel {
 
+    enum MatchStatus {
+
+        case upcoming
+        case running
+    }
+
     private(set) var matchList: [MatchItemListModel] = []
     private let group = DispatchGroup()
+    private var currentPage = 1
+    private var reachedLimit = false
 
-    func getUpcomingMatches(completion: @escaping((Bool) -> Void)) async {
+    func getMatches(matchStatus: MatchStatus, isReload: Bool = false, completion: @escaping((Bool) -> Void)) async {
+
+        if isReload {
+            currentPage = 1
+            reachedLimit = false
+            matchList = []
+        }
 
         let headers = [
-            "accept": "application/json",
-            "authorization": "Bearer ugzoCpm6qrNKV-unM3868dLR_ukHaRcxRFpnrpkdO9uPaQTkSpQ"
+            "accept": Constants.accept,
+            "authorization": Constants.token
         ]
 
-        let routeModel = RouteModel(path: MatchPath(path: .matchUpcomingList),
+        let routeModel: RouteModel
+
+        switch matchStatus {
+
+        case .running:
+
+            routeModel = RouteModel(path: MatchPath(path: .matchRunningList),
+                                    headers: headers)
+        case .upcoming:
+
+            if reachedLimit {
+
+                return
+            }
+            routeModel = RouteModel(path: MatchPath(path: .matchUpcomingList),
                                     headers: headers,
-                                    queryParameters: [URLQueryItem(name: "page", value: "1")])
+                                    queryParameters: [URLQueryItem(name: "page", value: "\(currentPage)")])
+        }
 
         let network = NetworkAdapter(routeModel: routeModel)
 
         await network.request(with: [MatchItemListModel].self) { [weak self] response, error in
 
             guard let self = self else { return }
+            guard let response = response else { return }
 
-            self.matchList.append(contentsOf: response ?? [])
+            if matchStatus == .upcoming {
+
+                if response.isEmpty {
+                    reachedLimit = true
+                    return
+                } else {
+                    currentPage = currentPage + 1
+                }
+            }
+
+            self.matchList.append(contentsOf: response)
 
             self.matchList.enumerated().forEach { (matchIndex, match) in
                 self.group.enter()
+
+                if matchStatus == .running {
+                    self.matchList[matchIndex].begin_at = "now"
+                }
+                
                 match.opponents?.enumerated().forEach { (opponentIndex, opponent) in
                     self.fetchImage(with: opponent.opponent?.image_url ?? "") { data, error in
 

@@ -13,6 +13,7 @@ struct PlayerDetailModel: Codable {
     var lastName: String?
     var imageUrl: String?
     var name: String?
+    var imageData: Data?
 
     enum CodingKeys: String, CodingKey {
 
@@ -20,5 +21,6 @@ struct PlayerDetailModel: Codable {
         case lastName = "last_name"
         case imageUrl = "image_url"
         case name
+        case imageData
     }
 }

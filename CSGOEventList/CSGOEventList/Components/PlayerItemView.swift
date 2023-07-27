@@ -52,6 +52,7 @@ class PlayerItemView: UIView {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.image = UIImage(named: "emptyProfile")
+        imageView.layer.masksToBounds = true
 
         return imageView
     }()
@@ -68,6 +69,12 @@ class PlayerItemView: UIView {
 
             self.nickNameLabel.text = player.name
             self.playerNameLabel.text = "\(player.firstName ?? "") \(player.lastName ?? "")"
+
+            if let imageData = player.imageData {
+
+                self.playerImageView.image = UIImage(data: imageData)
+                self.playerImageView.layer.cornerRadius = 5
+            }
             setupHierarchy()
             setupConstraints()
         }

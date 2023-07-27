@@ -26,24 +26,17 @@ class MatchCoordinator: Coordinator {
         let viewModel = MatchViewModel()
         let vc = MatchDetailsViewController(match: match,
                                             viewModel: viewModel)
-        //vc.coordinator = self
+        vc.coordinator = self
         self.navigationController.pushViewController(vc, animated: false)
     }
 
-    func dismiss(_ vc: UIViewController) {
+    func dismiss() {
 
-        vc.dismiss(animated: true)
+        navigationController.popViewController(animated: true)
     }
 
-    func dismissChildCoordinator (with child: Coordinator?) {
-
-        for (index, coordinator) in children.enumerated() {
-
-            if child === coordinator {
-
-                children.remove(at: index)
-                break
-            }
-        }
+    func dismissCoordinator() {
+        let parent = self.parent as? HomeCoordinator
+        parent?.dismissChildCoordinator(with: self)
     }
 }

@@ -12,6 +12,7 @@ class MatchPath: PathProtocol {
     enum Path {
 
         case matchUpcomingList
+        case matchRunningList
     }
 
     let path: Path
@@ -28,6 +29,9 @@ class MatchPath: PathProtocol {
         case .matchUpcomingList:
 
             return "/csgo/matches/upcoming"
+        case .matchRunningList:
+
+            return "/csgo/matches/running"
         }
     }
 }
