@@ -40,58 +40,10 @@ class MatchListTableViewCell: UITableViewCell {
         return label
     }()
 
-    private lazy var homeImageView: UIImageView = {
-
-        let imageView = UIImageView()
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.image = UIImage(named: "emptyLogo")
-
-        return imageView
-    }()
-
-    private lazy var homeLabel: UILabel = {
-
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = .systemFont(ofSize: 10)
-        label.textColor = UIColor(red: 1, green: 1, blue: 1, alpha: 1)
-        label.textAlignment = .center
-        label.numberOfLines = 2
-
-        return label
-    }()
-
-    private lazy var versusLabel: UILabel = {
-
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "VS"
-        label.font = .systemFont(ofSize: 12)
-        label.textColor = UIColor(red: 1, green: 1, blue: 1, alpha: 0.5)
-
-        return label
-    }()
-
-    private lazy var visitorImageView: UIImageView = {
-
-        let imageView = UIImageView()
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.image = UIImage(named: "emptyLogo")
-
-        return imageView
-    }()
-
-    private lazy var visitorLabel: UILabel = {
-
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = .systemFont(ofSize: 12)
-        label.textColor = UIColor(red: 1, green: 1, blue: 1, alpha: 1)
-        label.textAlignment = .center
-        label.numberOfLines = 2
-
-        return label
-    }()
+    private var opponentTeamsView: OpponentTeamsView = OpponentTeamsView(homeImage: nil,
+                                                                         homeName: "",
+                                                                         visitorImage: nil,
+                                                                         visitorName: "")
 
     private lazy var separator: UIView = {
 
@@ -133,6 +85,12 @@ class MatchListTableViewCell: UITableViewCell {
         self.opponents = opponents
         self.date = date
         self.league = league
+
+        selectionStyle = .none
+        setupOpponents()
+        setupLeague()
+        setupHierarchy()
+        setupConstraint()
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -143,64 +101,7 @@ class MatchListTableViewCell: UITableViewCell {
         
         contentView.backgroundColor = .clear
         backgroundColor = .clear
-        setupHierarchy()
-        setupConstraint()
 
-        DispatchQueue.main.async { [weak self] in
-
-            guard let self = self else { return }
-
-            opponents.enumerated().forEach { (index, opponent) in
-
-                if index == 0 {
-
-                    self.homeImageView.image = UIImage(data: opponent.imageData ?? Data())
-                    if let name = opponent.opponent?.name {
-
-                        self.homeLabel.text = opponent.opponent?.name
-                    } else {
-
-                        self.homeLabel.text = "TBD"
-                    }
-                } else if index == 1 {
-
-                    self.visitorImageView.image = UIImage(data: opponent.imageData ?? Data())
-                    if let name = opponent.opponent?.name {
-
-                        self.visitorLabel.text = opponent.opponent?.name
-                    } else {
-
-                        self.visitorLabel.text = "TBD"
-                    }
-                }
-            }
-
-            if let leagueImage = league?.imageData {
-
-                leagueImageView.image = UIImage(data: league?.imageData ?? Data())
-            } else {
-
-                leagueImageView.image = UIImage(named: "emptyLogo")
-            }
-
-            leagueNameLabel.text = league?.name ?? ""
-
-            let date = self.date.getDateFromString()
-
-            if date.isSevenDaysAfter() {
-
-                self.dateLabel.text = date.getDateStringFormatted()
-
-            } else {
-
-                guard let dayOfWeek = date.dayOfTheWeek() else { return }
-                let dayOfWeekReduced = dayOfWeek.prefix(3)
-                let dayNumber = date.getDateStringFormatted().suffix(6)
-
-                self.dateLabel.text = "\(dayOfWeekReduced),\(dayNumber)"
-
-            }
-        }
     }
 
     private func setupHierarchy() {
@@ -208,11 +109,7 @@ class MatchListTableViewCell: UITableViewCell {
         contentView.addSubview(container)
         container.addSubview(dateContainer)
         dateContainer.addSubview(dateLabel)
-        container.addSubview(homeImageView)
-        container.addSubview(homeLabel)
-        container.addSubview(versusLabel)
-        container.addSubview(visitorImageView)
-        container.addSubview(visitorLabel)
+        container.addSubview(opponentTeamsView)
         container.addSubview(separator)
         container.addSubview(leagueImageView)
         container.addSubview(leagueNameLabel)
@@ -228,7 +125,7 @@ class MatchListTableViewCell: UITableViewCell {
             container.topAnchor.constraint(equalTo: contentView.topAnchor),
             container.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
             container.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -16),
-            container.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -24),
+            container.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
             containerHeight,
 
             dateContainer.topAnchor.constraint(equalTo: container.topAnchor, constant: -12),
@@ -239,26 +136,8 @@ class MatchListTableViewCell: UITableViewCell {
             dateLabel.leadingAnchor.constraint(equalTo: dateContainer.leadingAnchor, constant: 8),
             dateLabel.bottomAnchor.constraint(equalTo: dateContainer.bottomAnchor, constant: -8),
 
-            homeImageView.centerYAnchor.constraint(equalTo: container.centerYAnchor, constant: -16),
-            homeImageView.trailingAnchor.constraint(equalTo: versusLabel.leadingAnchor, constant: -20),
-            homeImageView.heightAnchor.constraint(equalToConstant: 60),
-            homeImageView.widthAnchor.constraint(equalToConstant: 60),
-
-            homeLabel.topAnchor.constraint(equalTo: homeImageView.bottomAnchor, constant: 10),
-            homeLabel.centerXAnchor.constraint(equalTo: homeImageView.centerXAnchor),
-            homeLabel.widthAnchor.constraint(equalToConstant: 80),
-
-            versusLabel.centerYAnchor.constraint(equalTo: container.centerYAnchor, constant: -16),
-            versusLabel.centerXAnchor.constraint(equalTo: container.centerXAnchor),
-
-            visitorImageView.centerYAnchor.constraint(equalTo: container.centerYAnchor, constant: -16),
-            visitorImageView.leadingAnchor.constraint(equalTo: versusLabel.trailingAnchor, constant: 20),
-            visitorImageView.heightAnchor.constraint(equalToConstant: 60),
-            visitorImageView.widthAnchor.constraint(equalToConstant: 60),
-
-            visitorLabel.topAnchor.constraint(equalTo: visitorImageView.bottomAnchor, constant: 10),
-            visitorLabel.centerXAnchor.constraint(equalTo: visitorImageView.centerXAnchor),
-            visitorLabel.widthAnchor.constraint(equalToConstant: 80),
+            opponentTeamsView.centerYAnchor.constraint(equalTo: container.centerYAnchor, constant: -16),
+            opponentTeamsView.centerXAnchor.constraint(equalTo: container.centerXAnchor),
 
             separator.bottomAnchor.constraint(equalTo: container.bottomAnchor, constant: -32),
             separator.leadingAnchor.constraint(equalTo: container.leadingAnchor),
@@ -276,12 +155,79 @@ class MatchListTableViewCell: UITableViewCell {
         ])
     }
 
+    private func setupOpponents() {
+
+        var homeImage: UIImage? = UIImage(named: "emptyLogo")
+        var visitorImage: UIImage? = UIImage(named: "emptyLogo")
+        var homeName: String = "TBD"
+        var visitorName: String = "TBD"
+
+        for (index, opponent) in opponents.enumerated() {
+
+            if index == 0 {
+
+                homeImage = UIImage(data: opponent.imageData ?? Data())
+                if let name = opponent.opponent?.name {
+
+                    homeName = name
+                }
+
+            } else if index == 1 {
+
+                visitorImage = UIImage(data: opponent.imageData ?? Data())
+                if let name = opponent.opponent?.name {
+
+                    visitorName = name
+                }
+            }
+        }
+
+        self.opponentTeamsView = OpponentTeamsView(homeImage: homeImage,
+                                                   homeName: homeName,
+                                                   visitorImage: visitorImage,
+                                                   visitorName: visitorName)
+
+    }
+
+    private func setupLeague() {
+
+        if let leagueImage = league?.imageData {
+
+            self.leagueImageView.image = UIImage(data: leagueImage)
+        } else {
+
+            self.leagueImageView.image = UIImage(named: "emptyLogo")
+        }
+
+        leagueNameLabel.text = league?.name ?? ""
+
+        let date = self.date.getDateFromString()
+
+        if date.isSevenDaysAfter() {
+
+            self.dateLabel.text = date.getDateStringFormatted()
+
+        } else {
+
+            guard let dayOfWeek = date.dayOfTheWeek() else { return }
+            let dayOfWeekReduced = dayOfWeek.prefix(3)
+            let dayNumber = date.getDateStringFormatted().suffix(6)
+
+            self.dateLabel.text = "\(dayOfWeekReduced),\(dayNumber)"
+
+        }
+    }
+
     override func prepareForReuse() {
         super.prepareForReuse()
-        homeImageView.image = UIImage(named: "emptyLogo")
-        visitorImageView.image = UIImage(named: "emptyLogo")
+
         leagueImageView.image = UIImage(named: "emptyLogo")
         dateLabel.text = ""
         leagueNameLabel.text = ""
+        opponentTeamsView.removeFromSuperview()
+        opponentTeamsView = OpponentTeamsView(homeImage: UIImage(named: "emptyLogo"),
+                                              homeName: "TBD",
+                                              visitorImage: UIImage(named: "emptyLogo"),
+                                              visitorName: "TBD")
     }
 }

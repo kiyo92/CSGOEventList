@@ -31,4 +31,5 @@ struct MatchOpponentModel: Codable {
 
     var image_url: String?
     var name: String?
+    var id: Int?
 }

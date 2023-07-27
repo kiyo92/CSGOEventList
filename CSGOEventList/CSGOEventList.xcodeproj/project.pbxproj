@@ -27,6 +27,16 @@
 		6C1210E32A707369005BDF58 /* CustomPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C1210E22A707369005BDF58 /* CustomPath.swift */; };
 		6C1210E52A70C103005BDF58 /* Date+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C1210E42A70C103005BDF58 /* Date+Extensions.swift */; };
 		6C1210E82A70CB69005BDF58 /* String+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C1210E72A70CB69005BDF58 /* String+Extensions.swift */; };
+		6C1210EB2A71673F005BDF58 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C1210EA2A71673F005BDF58 /* Coordinator.swift */; };
+		6C1210ED2A71677A005BDF58 /* HomeCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C1210EC2A71677A005BDF58 /* HomeCoordinator.swift */; };
+		6C1210F02A716945005BDF58 /* MatchDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C1210EF2A716945005BDF58 /* MatchDetailsViewController.swift */; };
+		6C1210F32A716C32005BDF58 /* OpponentTeamsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C1210F22A716C32005BDF58 /* OpponentTeamsView.swift */; };
+		6C1210F52A71FEF3005BDF58 /* PlayerItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C1210F42A71FEF3005BDF58 /* PlayerItemView.swift */; };
+		6C1210F72A72237D005BDF58 /* MatchCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C1210F62A72237D005BDF58 /* MatchCoordinator.swift */; };
+		6C1210FA2A72332A005BDF58 /* MatchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C1210F92A72332A005BDF58 /* MatchViewModel.swift */; };
+		6C1210FC2A723421005BDF58 /* PlayerPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C1210FB2A723421005BDF58 /* PlayerPath.swift */; };
+		6C1210FE2A7234B8005BDF58 /* PlayerDetailModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C1210FD2A7234B8005BDF58 /* PlayerDetailModel.swift */; };
+		6C1211002A723E77005BDF58 /* Collection+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C1210FF2A723E77005BDF58 /* Collection+Extensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -71,6 +81,16 @@
 		6C1210E22A707369005BDF58 /* CustomPath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPath.swift; sourceTree = "<group>"; };
 		6C1210E42A70C103005BDF58 /* Date+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extensions.swift"; sourceTree = "<group>"; };
 		6C1210E72A70CB69005BDF58 /* String+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extensions.swift"; sourceTree = "<group>"; };
+		6C1210EA2A71673F005BDF58 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
+		6C1210EC2A71677A005BDF58 /* HomeCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCoordinator.swift; sourceTree = "<group>"; };
+		6C1210EF2A716945005BDF58 /* MatchDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchDetailsViewController.swift; sourceTree = "<group>"; };
+		6C1210F22A716C32005BDF58 /* OpponentTeamsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpponentTeamsView.swift; sourceTree = "<group>"; };
+		6C1210F42A71FEF3005BDF58 /* PlayerItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerItemView.swift; sourceTree = "<group>"; };
+		6C1210F62A72237D005BDF58 /* MatchCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchCoordinator.swift; sourceTree = "<group>"; };
+		6C1210F92A72332A005BDF58 /* MatchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchViewModel.swift; sourceTree = "<group>"; };
+		6C1210FB2A723421005BDF58 /* PlayerPath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerPath.swift; sourceTree = "<group>"; };
+		6C1210FD2A7234B8005BDF58 /* PlayerDetailModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerDetailModel.swift; sourceTree = "<group>"; };
+		6C1210FF2A723E77005BDF58 /* Collection+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Collection+Extensions.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -121,6 +141,8 @@
 		6C1210942A6F38F3005BDF58 /* CSGOEventList */ = {
 			isa = PBXGroup;
 			children = (
+				6C1210F12A716B8B005BDF58 /* Components */,
+				6C1210E92A71671E005BDF58 /* Coordinator */,
 				6C1210E62A70C109005BDF58 /* Extensions */,
 				6C1210DB2A7056BB005BDF58 /* ViewModel */,
 				6C1210D72A705679005BDF58 /* View */,
@@ -178,6 +200,7 @@
 				6C1210CC2A70376E005BDF58 /* PathProtocol.swift */,
 				6C1210D22A7044F0005BDF58 /* MatchPath.swift */,
 				6C1210E22A707369005BDF58 /* CustomPath.swift */,
+				6C1210FB2A723421005BDF58 /* PlayerPath.swift */,
 			);
 			path = Path;
 			sourceTree = "<group>";
@@ -186,6 +209,7 @@
 			isa = PBXGroup;
 			children = (
 				6C1210D52A704C10005BDF58 /* MatchItemListModel.swift */,
+				6C1210FD2A7234B8005BDF58 /* PlayerDetailModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -193,6 +217,7 @@
 		6C1210D72A705679005BDF58 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				6C1210EE2A71691A005BDF58 /* Match */,
 				6C1210D82A705682005BDF58 /* Home */,
 			);
 			path = View;
@@ -210,6 +235,7 @@
 		6C1210DB2A7056BB005BDF58 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				6C1210F82A72331A005BDF58 /* Match */,
 				6C1210DC2A7056C0005BDF58 /* Home */,
 			);
 			path = ViewModel;
@@ -236,8 +262,44 @@
 			children = (
 				6C1210E42A70C103005BDF58 /* Date+Extensions.swift */,
 				6C1210E72A70CB69005BDF58 /* String+Extensions.swift */,
+				6C1210FF2A723E77005BDF58 /* Collection+Extensions.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		6C1210E92A71671E005BDF58 /* Coordinator */ = {
+			isa = PBXGroup;
+			children = (
+				6C1210EA2A71673F005BDF58 /* Coordinator.swift */,
+				6C1210EC2A71677A005BDF58 /* HomeCoordinator.swift */,
+				6C1210F62A72237D005BDF58 /* MatchCoordinator.swift */,
+			);
+			path = Coordinator;
+			sourceTree = "<group>";
+		};
+		6C1210EE2A71691A005BDF58 /* Match */ = {
+			isa = PBXGroup;
+			children = (
+				6C1210EF2A716945005BDF58 /* MatchDetailsViewController.swift */,
+			);
+			path = Match;
+			sourceTree = "<group>";
+		};
+		6C1210F12A716B8B005BDF58 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				6C1210F22A716C32005BDF58 /* OpponentTeamsView.swift */,
+				6C1210F42A71FEF3005BDF58 /* PlayerItemView.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		6C1210F82A72331A005BDF58 /* Match */ = {
+			isa = PBXGroup;
+			children = (
+				6C1210F92A72332A005BDF58 /* MatchViewModel.swift */,
+			);
+			path = Match;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -370,8 +432,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6C1210EB2A71673F005BDF58 /* Coordinator.swift in Sources */,
 				6C1210D12A7044AC005BDF58 /* Router.swift in Sources */,
 				6C1210D62A704C10005BDF58 /* MatchItemListModel.swift in Sources */,
+				6C1210ED2A71677A005BDF58 /* HomeCoordinator.swift in Sources */,
+				6C1211002A723E77005BDF58 /* Collection+Extensions.swift in Sources */,
 				6C1210C92A70372F005BDF58 /* RouteProtocol.swift in Sources */,
 				6C1210962A6F38F3005BDF58 /* AppDelegate.swift in Sources */,
 				6C1210D32A7044F0005BDF58 /* MatchPath.swift in Sources */,
@@ -379,9 +444,16 @@
 				6C1210CD2A70376E005BDF58 /* PathProtocol.swift in Sources */,
 				6C1210DE2A7056CD005BDF58 /* HomeViewModel.swift in Sources */,
 				6C1210DA2A7056A8005BDF58 /* HomeViewController.swift in Sources */,
+				6C1210F32A716C32005BDF58 /* OpponentTeamsView.swift in Sources */,
 				6C1210E52A70C103005BDF58 /* Date+Extensions.swift in Sources */,
+				6C1210FC2A723421005BDF58 /* PlayerPath.swift in Sources */,
+				6C1210F72A72237D005BDF58 /* MatchCoordinator.swift in Sources */,
+				6C1210FA2A72332A005BDF58 /* MatchViewModel.swift in Sources */,
 				6C1210E82A70CB69005BDF58 /* String+Extensions.swift in Sources */,
+				6C1210F52A71FEF3005BDF58 /* PlayerItemView.swift in Sources */,
 				6C1210CB2A703757005BDF58 /* RouteModel.swift in Sources */,
+				6C1210FE2A7234B8005BDF58 /* PlayerDetailModel.swift in Sources */,
+				6C1210F02A716945005BDF58 /* MatchDetailsViewController.swift in Sources */,
 				6C1210E32A707369005BDF58 /* CustomPath.swift in Sources */,
 				6C1210C72A703713005BDF58 /* NetworkAdapter.swift in Sources */,
 				6C1210982A6F38F3005BDF58 /* SceneDelegate.swift in Sources */,

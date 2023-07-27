@@ -9,6 +9,7 @@ import UIKit
 
 class HomeViewController: UIViewController {
 
+    weak var coordinator: HomeCoordinator?
     private var viewModel: HomeViewModel
 
     private lazy var titleLabel: UILabel = {
@@ -50,17 +51,14 @@ class HomeViewController: UIViewController {
         view.backgroundColor = UIColor(red: 0.086, green: 0.086, blue: 0.129, alpha: 1)
         setupHierarchy()
         setupConstraints()
-    }
 
-    override func viewDidAppear(_ animated: Bool) {
-        
         Task {
 
             await viewModel.getUpcomingMatches { [weak self] _ in
 
                 guard let self = self else { return }
 
-                tableView.reloadData()
+                self.tableView.reloadData()
             }
         }
     }
@@ -108,11 +106,17 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
             let opponents = self.viewModel.matchList[indexPath.row].opponents ?? []
             let date = self.viewModel.matchList[indexPath.row].begin_at ?? ""
             let league = self.viewModel.matchList[indexPath.row].league
+
             cell.setup(with: opponents,
                        date: date,
                        league: league)
         }
 
         return cell
+    }
+
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+
+        coordinator?.matchDetail(with: viewModel.matchList[indexPath.row])
     }
 }
