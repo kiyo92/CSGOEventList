@@ -10,9 +10,10 @@ import Foundation
 class NetworkAdapter {
 
     enum NetworkError: Error {
-        case unabeToGenerateRequest
+        case unableToGenerateRequest
         case invalidEndpoint
         case parsingError
+        case outsideOfSuccessRange
     }
 
     let route: RouteProtocol
@@ -43,13 +44,25 @@ class NetworkAdapter {
 
         let response = session.dataTask(with: request) { data, response, error in
 
+            guard let data = data, error == nil else {
+                print("error=\(error)")
+                completion(nil, .unableToGenerateRequest)
+                return
+            }
+
+            if let httpStatus = response as? HTTPURLResponse, !(200...299).contains(httpStatus.statusCode) {
+                print("Error na consulta, status: \(httpStatus.statusCode)")
+                completion(nil, .outsideOfSuccessRange)
+                return
+            }
+
             guard response != nil else {
                 completion(nil, .invalidEndpoint)
                 return
             }
 
             do {
-                let result = try JSONDecoder().decode(T.self, from: data ?? Data())
+                let result = try JSONDecoder().decode(T.self, from: data)
                 completion(result, nil)
             } catch {
                 completion(nil, .parsingError)

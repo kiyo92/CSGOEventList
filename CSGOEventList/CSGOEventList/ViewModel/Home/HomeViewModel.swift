@@ -56,6 +56,23 @@ class HomeViewModel {
 
         await network.request(with: [MatchItemListModel].self) { [weak self] response, error in
 
+            switch error {
+
+            case .invalidEndpoint:
+                print("endpoint inválido")
+                return
+            case .parsingError:
+                print("model inválido")
+                return
+            case .unableToGenerateRequest:
+                print("não conseguimos exibir resultados")
+                return
+            case .some(.outsideOfSuccessRange):
+                print("Verifique se você possui autorização para esse recurso")
+            case .none:
+                break
+            }
+
             guard let self = self else { return }
             guard let response = response else { return }
 
